@@ -237,12 +237,212 @@ Output:
 The forward list after splice_after operation : 40 10 20 30 50 60 
 Some more methods of forward_list:
 
-front()ñ This function is used to reference the first element of the forward list container.
-begin()ñ begin() function is used to return an iterator pointing to the first element of the forward list container.
-end()ñ end() function is used to return an iterator pointing to the last element of the list container.
-cbegin()ñ Returns a constant iterator pointing to the first element of the forward_list.
-cend()ñ Returns a constant iterator pointing to the past-the-last element of the forward_list.
-before_begin()ñ Returns a iterator which points to the position before the first element of the forward_list.
-cbefore_begin()ñ Returns a constant random access iterator which points to the position before the first element of the forward_list.
-max_size()ñ Returns the maximum number of elements can be held by forward_list.
-resize()ñ Changes the size of forward_list.
+front()‚Äì This function is used to reference the first element of the forward list container.
+begin()‚Äì begin() function is used to return an iterator pointing to the first element of the forward list container.
+end()‚Äì end() function is used to return an iterator pointing to the last element of the list container.
+cbegin()‚Äì Returns a constant iterator pointing to the first element of the forward_list.
+cend()‚Äì Returns a constant iterator pointing to the past-the-last element of the forward_list.
+before_begin()‚Äì Returns a iterator which points to the position before the first element of the forward_list.
+cbefore_begin()‚Äì Returns a constant random access iterator which points to the position before the first element of the forward_list.
+max_size()‚Äì Returns the maximum number of elements can be held by forward_list.
+resize()‚Äì Changes the size of forward_list.
+
+
+
+Some of the operations other than insertions and deletions that can be used in forward lists are as follows :
+
+1. merge() :- This function is used to merge one forward list with other. If both the lists are sorted then the resulted list returned is also sorted.
+
+2. operator ‚Äú=‚Äù :- This operator copies one forward list into other. The copy made in this case is deep copy.
+
+
+// C++ code to demonstrate the working of  
+// merge() and operator= 
+#include<iostream> 
+#include<forward_list>  
+using namespace std; 
+  
+int main() 
+{      
+     // Initializing 1st forward list 
+     forward_list<int> flist1 = {1, 2, 3}; 
+       
+     // Declaring 2nd forward list 
+     forward_list<int> flist2;  
+       
+     // Creating deep copy using "=" 
+     flist2 = flist1; 
+       
+     // Displaying flist2 
+     cout << "The contents of 2nd forward list"
+             " after copy are : "; 
+     for (int &x : flist2)  
+         cout << x << " "; 
+     cout << endl; 
+       
+     // Using merge() to merge both list in 1 
+     flist1.merge(flist2); 
+       
+     // Displaying merged forward list 
+     // Prints sorted list 
+     cout << "The contents of forward list "
+             "after merge are : "; 
+     for (int &x : flist1)  
+        cout << x << " "; 
+     cout << endl; 
+       
+     return 0;     
+} 
+Output:
+
+The contents of 2nd forward list after copy are : 1 2 3 
+The contents of forward list after merge are : 1 1 2 2 3 3 
+3. sort() :- This function is used to sort the forward list.
+
+4. unique() :- This function deletes the multiple occurrences of a number and returns a forward list with unique elements. The forward list should be sorted for this function to execute successfully.
+
+
+// C++ code to demonstrate the working of 
+// sort() and unique() 
+#include<iostream> 
+#include<forward_list> // for sort() and unique() 
+using namespace std; 
+  
+int main() 
+{ 
+     // Initializing 1st forward list 
+     forward_list<int> flist1 = {1, 2, 3, 2, 3, 3, 1}; 
+  
+     // Sorting the forward list using sort() 
+     flist1.sort(); 
+  
+     // Displaying sorted forward list 
+     cout << "The contents of forward list after "
+             "sorting are : "; 
+     for (int &x : flist1) 
+         cout << x << " "; 
+     cout << endl; 
+  
+     // Use of unique() to remove repeated occurrences 
+     flist1.unique(); 
+  
+     // Displaying forward list after using unique() 
+     cout << "The contents of forward list after "
+             "unique operation are : "; 
+     for (int &x : flist1) 
+         cout << x << " "; 
+     cout << endl; 
+  
+     return 0; 
+} 
+Output:
+
+The contents of forward list after sorting are : 1 1 2 2 3 3 3 
+The contents of forward list after unique operation are : 1 2 3 
+5. reverse() :- This function is used to reverse the forward list.
+
+6. swap() :- This function swaps the content of one forward list with other.
+
+
+// C++ code to demonstrate the working of 
+// reverse() and swap() 
+#include<iostream> 
+#include<forward_list> // for reverse() and swap() 
+using namespace std; 
+int main() 
+{ 
+     // Initializing 1st forward list 
+     forward_list<int> flist1 = {1, 2, 3,}; 
+  
+     // Initializing 2nd forward list 
+     forward_list<int> flist2 = {4, 5, 6}; 
+  
+     // Using reverse() to reverse 1st forward list 
+     flist1.reverse(); 
+  
+     // Displaying reversed forward list 
+     cout << "The contents of forward list after"
+             " reversing are : "; 
+     for (int &x : flist1) 
+         cout << x << " "; 
+     cout << endl << endl; 
+  
+     // Displaying forward list before swapping 
+     cout << "The contents of 1st forward list "
+             "before swapping are : "; 
+     for (int &x : flist1) 
+         cout << x << " "; 
+     cout << endl; 
+     cout << "The contents of 2nd forward list "
+             "before swapping are : "; 
+     for (int &x : flist2) 
+         cout << x << " "; 
+     cout << endl; 
+  
+     // Use of swap() to swap the list 
+     flist1.swap(flist2); 
+  
+     // Displaying forward list after swapping 
+     cout << "The contents of 1st forward list "
+             "after swapping are : "; 
+     for (int &x : flist1) 
+         cout << x << " "; 
+     cout << endl; 
+  
+     cout << "The contents of 2nd forward list "
+             "after swapping are : "; 
+     for (int &x : flist2) 
+         cout << x << " "; 
+     cout << endl; 
+  
+     return 0; 
+} 
+Output:
+
+The contents of forward list after reversing are : 3 2 1 
+
+The contents of 1st forward list before swapping are : 3 2 1 
+The contents of 2nd forward list before swapping are : 4 5 6 
+The contents of 1st forward list after swapping are : 4 5 6 
+The contents of 2nd forward list after swapping are : 3 2 1 
+7. clear() :- This function clears the contents of forward list. After this function, the forward list becomes empty.
+
+8. empty() :- This function returns true if the list is empty otherwise false.
+
+// C++ code to demonstrate the working of  
+// clear() and empty() 
+#include<iostream> 
+#include<forward_list> // for clear() and empty() 
+using namespace std; 
+int main() 
+{      
+     // Initializing  forward list 
+     forward_list<int> flist1 = {1, 2, 3,}; 
+       
+     // Displaying forward list before clearing 
+     cout << "The contents of forward list  are : "; 
+     for (int &x : flist1)  
+         cout << x << " "; 
+     cout << endl; 
+       
+     // Using clear() to clear the forward list  
+     flist1.clear(); 
+       
+     // Displaying list after clear() performed 
+     cout << "The contents of forward list after "
+          << "clearing are : "; 
+     for (int &x : flist1)  
+         cout << x << " "; 
+     cout << endl; 
+       
+     // Checking if list is empty 
+     flist1.empty() ? cout << "Forward list is empty" :  
+                      cout << "Forward list is not empty"; 
+      
+     return 0;     
+} 
+Output:
+
+The contents of forward list  are : 1 2 3 
+The contents of forward list after clearing are : 
+Forward list is empty
