@@ -1,0 +1,14 @@
+
+Heap Operations
+
+std :: push_heap : Push element into heap range
+std :: pop_heap : Pop element from heap range
+std :: make_heap : Make heap from range
+std :: sort_heap : Sort elements of heap
+std :: is_heap : Test if range is heap
+std :: is_heap_until : Find first element not in heap order
+std :: max : Return the largest
+std :: minmax : Return smallest and largest elements
+std :: min_element : Return smallest element in range
+std :: max_element : Return largest element in range
+std :: minmax_element : Return smallest and largest elements in range
