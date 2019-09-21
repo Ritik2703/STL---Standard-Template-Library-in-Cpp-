@@ -1,0 +1,10 @@
+
+Merge (operating on sorted ranges)
+
+std :: merge : Merge sorted ranges
+std :: inplace_merge : Merge consecutive sorted ranges
+std :: includes : Test whether sorted range includes another sorted range
+std :: set_union : Union of two sorted ranges
+std :: set_intersection : Intersection of two sorted ranges
+std :: set_difference : Difference of two sorted ranges
+std :: set_symmetric_difference : Symmetric difference of two sorted ranges

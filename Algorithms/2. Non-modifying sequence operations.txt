@@ -1,0 +1,1480 @@
+************************************Non-modifying sequence operations*********************************************
+
+
+1  std :: all_of  : Test condition on all elements in range
+
+   This function operates on whole range of array elements and can save time to run a loop to check each elements one by one. It checks for a given property on every element and returns true when each element in range satisfies specified property, else returns false.
+
+
+2  std :: any_of  : Test if any element in range fulfills condition
+
+   This function checks for a given range if there’s even one element satisfying a given property mentioned in function. Returns true if at least one element satisfies the property else returns false.
+
+
+
+3  std :: none_of : Test if no elements fulfill condition
+
+   This function returns true if none of elements satisfies the given condition else returns false.
+
+
+
+
+
+**********************Array algorithms in C++ STL (all_of, any_of, none_of, copy_n and iota)************************
+From C++11 onwards, some new and interesting algorithms are added in STL of C++. These algorithms operate on an array and are useful in saving time during coding and hence useful in competitive programming as well.
+
+***************all_of()****************
+
+This function operates on whole range of array elements and can save time to run a loop to check each elements one by one. It checks for a given property on every element and returns true when each element in range satisfies specified property, else returns false.
+
+// C++ code to demonstrate working of all_of() 
+#include<iostream> 
+#include<algorithm> // for all_of() 
+using namespace std; 
+int main() 
+{ 
+    // Initializing array 
+    int ar[6] =  {1, 2, 3, 4, 5, -6}; 
+  
+    // Checking if all elements are positive 
+    all_of(ar, ar+6, [](int x) { return x>0; })? 
+          cout << "All are positive elements" : 
+          cout << "All are not positive elements"; 
+  
+    return 0; 
+  
+} 
+Output:
+
+All are not positive elements
+In the above code, -6 being a negative element negates the condition and returns false.
+
+************any_of()************
+
+This function checks for a given range if there’s even one element satisfying a given property mentioned in function. Returns true if at least one element satisfies the property else returns false.
+
+
+// C++ code to demonstrate working of any_of() 
+#include<iostream> 
+#include<algorithm> // for any_of() 
+using namespace std; 
+int main() 
+{ 
+    // Initializing array 
+    int ar[6] =  {1, 2, 3, 4, 5, -6}; 
+  
+    // Checking if any element is negative 
+    any_of(ar, ar+6, [](int x){ return x<0; })? 
+          cout << "There exists a negative element" : 
+          cout << "All are positive elements"; 
+  
+    return 0; 
+  
+} 
+Output:
+
+There exists a negative element
+In above code, -6 makes the condition positive.
+
+**************none_of()**************
+
+This function returns true if none of elements satisfies the given condition else returns false.
+
+// C++ code to demonstrate working of none_of() 
+#include<iostream> 
+#include<algorithm> // for none_of() 
+using namespace std; 
+int main() 
+{ 
+    // Initializing array 
+    int ar[6] =  {1, 2, 3, 4, 5, 6}; 
+  
+    // Checking if no element is negative 
+    none_of(ar, ar+6, [](int x){ return x<0; })? 
+          cout << "No negative elements" : 
+          cout << "There are negative elements"; 
+  
+    return 0; 
+} 
+Output:
+
+No negative elements
+Since all elements are positive, the function returns true.
+
+***********copy_n()****************
+
+copy_n() copies one array elements to new array. This type of copy creates a deep copy of array. This function takes 3 arguments, source array name, size of array and the target array name.
+
+
+// C++ code to demonstrate working of copy_n() 
+#include<iostream> 
+#include<algorithm> // for copy_n() 
+using namespace std; 
+int main() 
+{ 
+    // Initializing array 
+    int ar[6] =  {1, 2, 3, 4, 5, 6}; 
+  
+    // Declaring second array 
+    int ar1[6]; 
+  
+    // Using copy_n() to copy contents 
+    copy_n(ar, 6, ar1); 
+  
+    // Displaying the copied array 
+    cout << "The new array after copying is : "; 
+    for (int i=0; i<6 ; i++) 
+       cout << ar1[i] << " "; 
+  
+    return 0; 
+  
+} 
+Output:
+
+The new array after copying is : 1 2 3 4 5 6
+In the above code, the elements of ar are copied in ar1 using copy_n()
+
+
+****************iota()**************
+
+This function is used to assign continuous values to array. This function accepts 3 arguments, the array name, size, and the starting number.
+
+// C++ code to demonstrate working of iota() 
+#include<iostream> 
+#include<numeric> // for iota() 
+using namespace std; 
+int main() 
+{ 
+    // Initializing array with 0 values 
+    int ar[6] =  {0}; 
+  
+    // Using iota() to assign values 
+    iota(ar, ar+6, 20); 
+  
+    // Displaying the new array 
+    cout << "The new array after assigning values is : "; 
+    for (int i=0; i<6 ; i++) 
+       cout << ar[i] << " "; 
+  
+    return 0; 
+  
+} 
+Output:
+
+The new array after assigning values is : 20 21 22 23 24 25
+In the above code, continuous values are assigned to array using iota().
+
+
+
+4  std :: for_each : Apply function to range
+
+
+
+
+
+5  std :: find : Find value in range
+
+Find the element in the given range of numbers. Returns an iterator to the first element in the range [first,last) that compares equal to val. If no such element is found, the function returns last.
+
+Function Template :
+
+InputIterator find (InputIterator first, InputIterator last, const T& val)
+
+first,last :
+Input iterators to the initial and final positions in a sequence. The range
+searched is [first,last), which contains all the elements between first and
+last, including the element pointed by first but not the element pointed by last.
+
+val :
+Value to be search in the range
+
+Return Value :
+An iterator to the first element in the range that compares equal to val.
+If no elements match, the function returns last.
+Examples:
+
+Input : 10 20 30 40
+Output : Element found at position : 3    // Search for 30
+
+Input : 8 5 9 2 7 1 3 10
+Output : Element not found.    // Search for 4
+
+#include<bits/stdc++.h> 
+  
+int main () 
+{ 
+    std::vector<int> vec { 10, 20, 30, 40 }; 
+      
+    // Iterator used to store the position  
+    // of searched element 
+    std::vector<int>::iterator it; 
+      
+    // Print Original Vector 
+    std::cout << "Original vector :"; 
+    for (int i=0; i<vec.size(); i++) 
+        std::cout << " " << vec[i]; 
+          
+    std::cout << "\n"; 
+      
+    // Element to be searched 
+    int ser = 30; 
+      
+    // std::find function call 
+    it = std::find (vec.begin(), vec.end(), ser); 
+    if (it != vec.end()) 
+    { 
+        std::cout << "Element " << ser <<" found at position : " ; 
+        std:: cout << it - vec.begin() + 1 << "\n" ; 
+    } 
+    else
+        std::cout << "Element not found.\n\n"; 
+          
+    return 0; 
+} 
+Output:
+
+Original vector : 10 20 30 40
+Element 30 found at position : 3
+
+**************************************************************************************************8
+
+6  std :: find_if : Find element in range
+
+Returns an iterator to the first element in the range [first, last] for which pred(Unary Function) returns true. If no such element is found, the function returns last.
+Function Template :
+
+InputIterator find_if (InputIterator first, InputIterator last, UnaryPredicate pred);
+
+first, last :range which contains all the elements between first
+and last, including the element pointed by first but
+not the element pointed by last.
+
+pred : Unary function that accepts an element in the range
+as argument and returns a value in boolean.
+
+Return value :
+Returns an iterator to the first element in the range
+[first, last] for which pred(function) returns true. If
+no such element is found, the function returns last.
+
+**********************************************************************************************************************
+
+
+7  std :: find_if_not : Find element in range (negative condition)
+
+std :: find_if_not
+
+Returns an iterator to the first element in the range [first, last] for which pred(Unary Function) returns false. If no such element is found, the function returns last.
+Function Template :
+
+InputIterator find_if_not (InputIterator first, InputIterator last, UnaryPredicate pred);
+
+Return value :
+Returns an iterator to the first element in the range
+[first, last] for which pred(function) returns false.
+
+// CPP program to illustrate 
+// std::find_if and std::find_if_not 
+#include <bits/stdc++.h> 
+  
+// Returns true if argument is odd 
+bool IsOdd(int i) 
+{ 
+    return i % 2; 
+} 
+  
+// Driver code 
+int main() 
+{ 
+    std::vector<int> vec{ 10, 25, 40, 55 }; 
+  
+    // Iterator to store the position of element found 
+    std::vector<int>::iterator it; 
+  
+    // std::find_if 
+    it = std::find_if(vec.begin(), vec.end(), IsOdd); 
+    std::cout << "The first odd value is " << *it << '\n'; 
+  
+        // Iterator to store the position of element found 
+        std::vector<int>::iterator ite; 
+  
+    // std::find_if_not 
+    ite = std::find_if_not(vec.begin(), vec.end(), IsOdd); 
+  
+    std::cout << "The first non-odd(or even) value is " << *ite << '\n'; 
+  
+        return 0; 
+} 
+Output:
+
+The first odd value is 25
+The first non-odd(or even) value is 10
+
+************************************************************************************************************
+
+8  std :: find_end : Find last subsequence in range
+
+std::find_end is used to find the last occurrence of a sub-sequence inside a container. It searches the range [first1,last1) for the last occurrence of the sequence defined by [first2,last2), and returns an iterator to its first element, or last1 if no occurrences are found.
+
+It is similar to std::search in such a way that in std::search , we look for the first occurrence of a sub-sequence inside another container, whereas in std::find_end, we look for the last occurrence of such sub-sequence, and returns an iterator to the first element if such sub-sequence is found.
+
+It can be used in two ways as shown below:
+
+Comparing elements using ==:
+Syntax:
+
+Template
+   ForwardIterator1 find_end (ForwardIterator1 first1, ForwardIterator1 last1,
+                              ForwardIterator2 first2, ForwardIterator2 last2);
+
+first1: Forward iterator to the first element in the first range.
+last1: Forward iterator to the last element in the first range.
+first2: Forward iterator to the first element in the second range.
+last2: Forward iterator to the last element in the second range.
+
+Return Value: It returns an iterator to the first element of 
+the last occurrence of [first2,last2) in [first1,last1).
+If the sequence is not found or [first2,last2) is empty,
+the function returns last1.
+
+// C++ program to demonstrate the use of std::find_end 
+#include<iostream> 
+#include<vector> 
+#include<algorithm> 
+using namespace std; 
+int main() 
+{ 
+    // Defining first container 
+    vector<int>v = {1, 3, 10, 3, 10, 1, 3, 3, 10, 7, 8,  
+                    1, 3, 10}; 
+  
+    // Defining second container 
+    vector<int>v1 = {1, 3, 10}; 
+  
+    vector<int>::iterator ip; 
+      
+    // Using std::find_end 
+    ip = std::find_end(v.begin(), v.end(), v1.begin(), 
+                       v1.end()); 
+  
+    // Displaying the index where the last common occurrence  
+    // begins 
+    cout << (ip - v.begin()) << "\n"; 
+    return 0; 
+} 
+Output:
+
+11
+By comparing using a pre-defined function:
+Syntax:
+
+Template
+   ForwardIterator1 find_end (ForwardIterator1 first1, ForwardIterator1 last1,
+                              ForwardIterator2 first2, ForwardIterator2 last2,
+                              BinaryPredicate pred);
+
+Here, first1, last1, first2, and last2 are
+the same as the previous case.
+
+Pred: Binary function that accepts two elements
+as arguments (one of each of the two sequences, in the same order),
+and returns a value convertible to bool. 
+The value returned indicates whether the elements are considered
+to match in the context of this function.
+The function shall not modify any of its arguments.
+This can either be a function pointer or a function object.
+
+
+Return Value: It returns an iterator to the first element of
+the last occurrence of [first2,last2) in [first1,last1).
+If the sequence is not found or [first2,last2) is empty, 
+the function returns last1.
+
+// C++ program to demonstrate the use of std::find_end 
+#include<iostream> 
+#include<vector> 
+#include<algorithm> 
+using namespace std; 
+  
+// Defining the BinaryFunction 
+bool Pred (int a, int b) 
+{ 
+    return (a == b); 
+} 
+int main() 
+{ 
+    // Defining first container 
+    vector<int>v = {1, 5, 7, 11, 13, 15, 30, 30, 7} , i; 
+  
+    // Defining second container 
+    vector<int>v1 = {13, 15}; 
+  
+    vector<int>::iterator ip; 
+      
+    // Using std::find_end 
+    ip = std::find_end(v.begin(), v.end(), v1.begin(),  
+                       v1.end(), Pred); 
+  
+    // Displaying the index where the last common occurrence 
+    // begins 
+    cout << (ip - v.begin()) << "\n"; 
+  
+    return 0; 
+} 
+Output:
+
+4
+
+************************************************************************************************************************
+
+9  std :: find_first_of : Find element from set in range
+
+std::find_first_of is used to compare elements between two containers. It compares all the elements in a range [first1,last1) with the elements in the range [first2,last2), and if any of the elements present in the second range is found in the first one , then it returns an iterator to that element.
+
+If there are more than one element common in both the ranges, then an iterator to the first common element present in the first container is returned. In case there is no match, then iterator pointing to last1 is returned.
+
+It can be used in two ways as shown below:
+
+Comparing elements using ==:
+Syntax:
+
+Template
+ForwardIterator1 find_first_of(ForwardIterator1 first1,
+                               ForwardIterator1 last1,
+                               ForwardIterator2 first2, 
+                               ForwardIterator2 last2);
+
+first1: Forward iterator to the first element 
+       in the first range.
+last1: Forward iterator to the last element 
+       in the first range.
+first2: Forward iterator to the first element
+       in the second range.
+last2: Forward iterator to the last element 
+       in the second range.
+
+Return Value: It returns an iterator to the 
+              first element in [first1,last1) that is part of 
+              [first2,last2). If no matches are found or [first2,
+              last2) is empty, the function returns last1.
+
+// C++ program to demonstrate  
+// the use of std::find_first_of 
+#include<iostream> 
+#include<vector> 
+#include<algorithm> 
+using namespace std; 
+int main() 
+{ 
+    // Defining first container 
+    vector<int>v = {1, 3, 3, 3, 10, 1, 3, 3, 7, 7, 8} , i; 
+  
+    // Defining second container 
+    vector<int>v1 = {1, 3, 10}; 
+  
+    vector<int>::iterator ip; 
+      
+    // Using std::find_first_of 
+    ip = std::find_first_of(v.begin(), v.end(), v1.begin(), 
+                            v1.end()); 
+  
+    // Displaying the first common element found 
+    cout << *ip << "\n"; 
+  
+    // Finding the second common element 
+    ip = std::find_first_of(ip + 1, v.end(), v1.begin(), 
+                            v1.end()); 
+  
+    // Displaying the second common element found 
+    cout << *ip << "\n"; 
+      
+    return 0; 
+} 
+Output:
+
+1 
+3
+Here, in both the vectors, the first common element is 1 and to find the second common element, we have passed the beginning of the first range as the element next to the first common element already found.
+
+By comparing using a pre-defined function:
+Syntax:
+
+Template
+   ForwardIterator1 find_first_of (ForwardIterator1 first1, 
+                                   ForwardIterator1 last1,
+                                   ForwardIterator2 first2, 
+                                   ForwardIterator2 last2,
+                                   BinaryPredicate pred);
+
+Here, first1, last1, first2 and last2 are the same as
+previous case.
+
+Pred: Binary function that accepts two 
+elements as arguments (one of each of the two sequences, 
+in the same order), and returns a value convertible to 
+bool. The value returned indicates whether the elements 
+are considered to match in the context of this function.
+The function shall not modify any of its arguments.
+This can either be a function pointer or a function object.
+
+
+Return Value: It returns an iterator to 
+the first element in [first1,last1) that is part of 
+[first2,last2). If no matches are found or [first2,last2) 
+is empty, the function returns last1.
+
+// C++ program to demonstrate 
+// the use of std::find_first_of 
+#include<iostream> 
+#include<vector> 
+#include<algorithm> 
+using namespace std; 
+  
+// Defining the BinaryFunction 
+bool Pred (int a, int b) 
+{ 
+    if ( a % b == 0) { 
+        return 1; 
+    } else { 
+        return 0; 
+    } 
+} 
+int main() 
+{ 
+    // Defining first container 
+    vector<int>v = {1, 5, 7, 11, 13, 15, 30, 30, 7} , i; 
+  
+    // Defining second container 
+    vector<int>v1 = {2, 3, 4}; 
+  
+    vector<int>::iterator ip; 
+      
+    // Using std::find_first_of 
+    ip = std::find_first_of(v.begin(), v.end(), v1.begin(), 
+                            v1.end(), Pred); 
+  
+    // Displaying the first element satisfying Pred() 
+    cout << *ip << "\n"; 
+  
+    return 0; 
+} 
+Output:
+
+15
+Here, we have manipulated the binary function in such a way that we are trying to find the first number in the first container which is a multiple of any of the number in the second container. And in this case, 15 comes out to be the first one, as it is divisible by 3.
+
+Possible Application: std::find_first_of can be used to find the first occurrence of any of the elements present in another container.
+
+One possible application of this is to find the first vowel in a sentence.
+
+// C++ program to demonstrate the use of std::find_first_of 
+#include<iostream> 
+#include<vector> 
+#include<string> 
+#include<algorithm> 
+using namespace std; 
+int main() 
+{ 
+    // Defining first container 
+    string s1 = "You are reading about std::find_first_of"; 
+  
+    // Defining second container containing list of vowels 
+    string s2 = {'a', 'A', 'e', 'E', 'i', 'I', 'o', 'O',  
+                'u', 'U'}; 
+      
+    // Using std::find_first_of to find first occurrence of 
+    // a vowel 
+    auto ip = std::find_first_of(s1.begin(),s1.end(), 
+                                 s2.begin(), s2.end()); 
+  
+    // Displaying the first vowel found 
+    cout << "First vowel found at index "<< (ip - s1.begin())  
+         << "\n"; 
+    return 0; 
+} 
+Output:
+
+First vowel found at index 1
+Explanation: std::find_first_of searches for the first occurrence of any of the elements from the second container in the first one, and in this way , first vowel present in the sentence was found out.
+
+It can also be used to find the first odd and even numbers present in list.
+
+// C++ program to find the first occurrence of an odd 
+// and even number 
+#include<iostream> 
+#include<vector> 
+#include<algorithm> 
+using namespace std; 
+  
+// Defining the Predicate Function to find first occurrence 
+// of an odd number 
+bool pred( int a, int b) 
+{ 
+    if (a % b != 0) { 
+        return 1; 
+    } else { 
+        return 0; 
+    } 
+} 
+  
+// Defining the Predicate Function to find first occurrence 
+// of an even number 
+bool pred1( int a, int b) 
+{ 
+    if (a % b == 0) { 
+        return 1; 
+    } else { 
+        return 0; 
+    } 
+} 
+  
+int main() 
+{ 
+  
+    // Defining a vector 
+    vector<int>v1 = {1, 3, 4, 5, 6, 7, 8, 10}; 
+      
+    // Declaring a sub-sequence 
+    vector<int>v2 = {2}; 
+       
+    // Using std::find_first_of to find the first  
+    // occurrence of an odd number 
+    vector<int>::iterator ip; 
+    ip = std::find_first_of(v1.begin(), v1.end(), v2.begin(), 
+                       v2.end(), pred); 
+   
+    // Displaying the index where the first odd number  
+    // occurred 
+    cout << "First odd no. occurs at index " 
+         <<  (ip - v1.begin()); 
+  
+  
+    // Using std::find_first_of to find the last occurrence    
+    // of an even number 
+    ip = std::find_first_of(v1.begin(), v1.end(), v2.begin(), 
+                       v2.end(), pred1); 
+   
+    // Displaying the index where the first even number  
+    // occurred 
+    cout << "\nFirst even no. occurs at index " 
+         <<  (ip - v1.begin()); 
+  
+    return 0; 
+} 
+Output:
+
+First odd no. occurs at index 0
+First even no. occurs at index 2
+Explanation: Here, we have stored 2 in one container and with the help of predicate function, we are looking for the first number in the first container which is not divisible by 2 (for odd number) and which is divisible by 2 (for even number).
+
+Time Complexity: O(n1 * n2), where, n1 is the number of elements in the first range and n2 is the number of elements in the second range.
+
+*****************************************************************************************************************************************
+
+10 std :: adjacent_find : Find equal adjacent elements in range
+
+Searches the range [first, last) for the first occurrence of two consecutive elements that match, and returns an iterator to the first of these two elements, or last if no such pair is found. Elements are compared using the given binary predicate p or using ==.
+There are two possible implementations of the function as given below:
+
+Without binary predicate:
+ForwardIt adjacent_find( ForwardIt first, ForwardIt last );
+first, last : the range of elements to examine
+Example :
+Given a sorted array of n elements containing all unique elements but one, the task is to find the repeating element in the array.
+Examples:
+
+Input :  arr[] = { 1, 2, 3, 4, 4}
+Output :  4
+
+Input :  arr[] = { 1, 1, 2, 3, 4}
+Output :  1
+We have discussed this problem with other approaches here.
+
+
+// CPP Program to find the only  
+// repeating element in sorted array 
+// using std :: adjacent_find 
+// without predicate 
+#include <iostream> 
+#include <algorithm> 
+  
+int main() 
+{ 
+    // Sorted Array with a repeated element 
+    int A[] = { 10, 13, 16, 16, 18 }; 
+  
+    // Size of the array 
+    int n = sizeof(A) / sizeof(A[0]); 
+  
+    // Iterator pointer which points to the address of the repeted element 
+    int* it = std::adjacent_find(A, A + n); 
+  
+    // Printing the result 
+    std::cout << *it; 
+} 
+Output:
+
+16
+With binary predicate:
+ForwardIt adjacent_find( ForwardIt first, ForwardIt last, BinaryPredicate p );
+first, last : the range of elements to examine
+p :  binary predicate which returns true 
+if the elements should be treated as equal. 
+
+Return value :
+An iterator to the first of the first pair of identical elements, '
+that is, the first iterator it such that *it == *(it+1) for the first 
+version or p(*it, *(it + 1)) != false for the second version.
+If no such elements are found, last is returned.
+Example:
+Given a container of size n, and a range between [0 … n], write a program to check if it is sorted in ascending order or not. Equal values are allowed in array and two consecutive equal values are considered sorted.
+
+Input : 2 5 9 4      // Range = 3
+Output : Sorted in given range.
+
+Input : 3 5 1 9     // Range = 3
+Output : Not sorted in given range.
+
+#include <algorithm> 
+#include <iostream> 
+#include <vector> 
+  
+int main() 
+{ 
+    std::vector<int> vec{ 0, 1, 2, 5, 40, 40, 41, 41, 5 }; 
+  
+    // Index 0 to 4 
+    int range1 = 5; 
+  
+    // Index 0 to 8 
+    int range2 = 9; 
+  
+    std::vector<int>::iterator it; 
+  
+    // Iterating from 0 to range1, 
+    // till we get a decreasing element 
+    it = std::adjacent_find(vec.begin(), 
+                            vec.begin() + range1, std::greater<int>()); 
+  
+    if (it == vec.begin() + range1)  
+    { 
+        std::cout << "Sorted in the range : " << range1 << std::endl; 
+    } 
+  
+    else 
+    { 
+        std::cout << "Not sorted in the range : " << range1 << std::endl; 
+    } 
+  
+    // Iterating from 0 to range2, 
+    // till we get a decreasing element 
+    it = std::adjacent_find(vec.begin(), 
+                            vec.begin() + range2, std::greater<int>()); 
+  
+    if (it == vec.begin() + range2)  
+    { 
+        std::cout << "Sorted in the range : " << range2 << std::endl; 
+    } 
+  
+    else 
+    { 
+        std::cout << "Not sorted in the range : " << range2 << std::endl; 
+    } 
+} 
+Output:
+
+Sorted in the range : 5
+Not sorted in the range : 9
+
+
+**************************************************************************************************************************************
+
+
+
+11 std :: count : Count appearances of value in range
+
+std::count() returns number of occurrences of an element in a given range. Returns the number of elements in the range [first,last) that compare equal to val.
+
+// Returns count of occurrences of value in
+// range [begin, end] 
+template 
+int count(Iterator first, Iterator last, T &val)
+first, last : Input iterators to the initial and 
+final positions of the sequence of elements.
+val : Value to match
+Complexity It’s order of complexity O(n). Compares once each element with the particular value.
+
+Counting occurrences in an array.
+
+
+// C++ program for count in C++ STL for 
+// array 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+int main() 
+{ 
+    int arr[] = { 3, 2, 1, 3, 3, 5, 3 }; 
+    int n = sizeof(arr) / sizeof(arr[0]); 
+    cout << "Number of times 3 appears : "
+         << count(arr, arr + n, 3); 
+  
+    return 0; 
+} 
+Number of times 3 appears : 4
+Counting occurrences in a vector.
+
+// C++ program for count in C++ STL for 
+// a vector 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+int main() 
+{ 
+    vector<int> vect{ 3, 2, 1, 3, 3, 5, 3 }; 
+    cout << "Number of times 3 appears : "
+         << count(vect.begin(), vect.end(), 3); 
+  
+    return 0; 
+} 
+Number of times 3 appears : 4
+Counting occurrences in a string.
+
+// C++ program for the count in C++ STL 
+// for a string 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+int main() 
+{ 
+    string str = "geeksforgeeks"; 
+  
+    cout << "Number of times 'e' appears : " 
+         << count(str.begin(), str.end(), 'e'); 
+  
+    return 0; 
+} 
+Number of times 'e' appears : 4
+
+****************************************************************************************
+
+12 std :: count_if : Return number of elements in range satisfying condition
+
+
+
+
+***************************************************************************************************
+
+13 std :: mismatch : Return first position where two ranges differ
+
+C++ STL has lots of useful functions that helps us to achieve various programming tasks. One such function is “mismatch()” . This function, defined in “algorithm” header file, helps to compare 2 containers for mismatches. This function has 2 versions. Both are discussed in this article.
+mismatch( start_iter1, end_iter1, start_iter2 ) This version of mismatch only test for inequality.
+Here, there are 3 arguments,
+start_iter1: Beginning iterator to 1st container
+end_iter1: Last iterator to 1st container
+start_iter2: Starting iterator to the 2nd iterator from where comparison is desired to begin.
+This function returns the 1st mismatch pair pointer, first element pointing to position of first mismatch element of 1st container, second element pointing to position of first mismatch element of 2nd container. If no mismatch is found, 1st element points to position after last element of 1st container and 2nd points to corresponding position in 2nd container.
+
+
+// C++ code to demonstrate the working of  
+// mismatch( start_iter1, end_iter1, start_iter2 ) 
+  
+#include<iostream> 
+#include<algorithm>  
+#include<vector> 
+using namespace std; 
+  
+int main() 
+{ 
+      
+    // initializing vectors 
+    vector<int> v1 = { 1, 10, 15, 20 }; 
+    vector<int> v2 = { 1, 10, 25, 30, 45 }; 
+    vector<int> v3 = { 1, 10, 15, 20 }; 
+    vector<int> v4 = { 1, 10, 15, 20, 24 }; 
+      
+    // declaring pointer pair 
+    pair< vector<int>::iterator, 
+    vector<int>::iterator > mispair; 
+      
+    // using mismatch() to search for 1st mismatch 
+    mispair = mismatch(v1.begin(), v1.end(), v2.begin()); 
+      
+    // printing the mismatch pair 
+    // 1st mismatch at 15 and 25 
+    cout << "The 1st mismatch element of 1st container : "; 
+    cout << *mispair.first << endl; 
+      
+    cout << "The 1st mismatch element of 2nd container : "; 
+    cout << *mispair.second << endl; 
+      
+    // using mismatch() to search for 1st mismatch 
+    mispair = mismatch(v3.begin(), v3.end(), v4.begin()); 
+      
+    // printing the mismatch pair 
+    // no mismatch 
+    // points to position after last 0 and corresponding 24 
+    cout << "The returned value from 1st container is : "; 
+    cout << *mispair.first << endl; 
+      
+    cout << "The returned value from 2nd container is : "; 
+    cout << *mispair.second << endl; 
+      
+} 
+Output:
+
+The 1st mismatch element of 1st container : 15
+The 1st mismatch element of 2nd container : 25
+The returned value from 1st container is  : 0
+The returned value from 2nd container is  : 24
+mismatch( start_iter1, end_iter1, start_iter2, comparator) : This function is almost similar to the working as the above mentioned version, but it offers to find not only equality mismatches, but also other user-defined and desired mismatches via user- defined comparator function that is sent as 4th argument and returns a boolean true or false.
+
+// C++ code to demonstrate the working of 
+// mismatch( start_iter1, end_iter1, start_iter2, comparator ) 
+  
+#include<iostream> 
+#include<algorithm>  
+#include<vector> 
+using namespace std; 
+  
+// comparator function 
+// returns true when element from  
+// 1st element is greater than 2nd 
+bool compare(int a, int b) 
+{    
+    return (a>b); 
+} 
+  
+int main() 
+{ 
+      
+    // initializing vectors 
+    vector<int> v1 = { 23, 13, 15, 20 }; 
+    vector<int> v2 = { 1, 10, 25, 30, 45 }; 
+    vector<int> v3 = { 12, 100, 152, 204 }; 
+    vector<int> v4 = { 1, 10, 15, 20, 24 }; 
+      
+    // declaring pointer pair 
+    pair< vector<int>::iterator, 
+    vector<int>::iterator > mispair; 
+      
+    // using mismatch() to search for 1st mismatch 
+    mispair = mismatch(v1.begin(), v1.end(), v2.begin(), compare); 
+      
+    // printing the mismatch pair 
+    // 1st mismatch at 15 and 25 
+    // 15 is 1st element less than 2nd at same position 
+    cout << "The 1st mismatch element of 1st container : "; 
+    cout << *mispair.first << endl; 
+      
+    cout << "The 1st mismatch element of 2nd container : "; 
+    cout << *mispair.second << endl; 
+      
+    // using mismatch() to search for 1st mismatch 
+    mispair = mismatch(v3.begin(), v3.end(), v4.begin(), compare); 
+      
+    // printing the mismatch pair 
+    // no mismatch 
+    // all elements in 1st container are greater than 2nd 
+    // points to position after last 0 and corresponding 24 
+    cout << "The returned value from 1st container is  : "; 
+    cout << *mispair.first << endl; 
+      
+    cout << "The returned value from 2nd container is  : "; 
+    cout << *mispair.second << endl; 
+      
+} 
+Output:
+
+The 1st mismatch element of 1st container : 15
+The 1st mismatch element of 2nd container : 25
+The returned value from 1st container is  : 0
+The returned value from 2nd container is  : 24
+
+********************************************************************************************************
+
+14 std::equal : Test whether the elements in two ranges are equal
+
+std::equal() helps to compares the elements within the range [first_1,last_1) with those within range beginning at first_2.
+Syntax 1:
+
+template 
+  bool equal (InputIterator1 first1, InputIterator1 last1,
+              InputIterator2 first2)
+	
+first_1, last_1 : Initial and final positions of the first
+    sequence. All the elements are present within a range [first_1,last_1)
+first2 : Initial position of the second sequence.
+
+Returns : 
+true, if all of the elements in both ranges match; otherwise false
+
+// C++ program illustrating 
+// use of  bool equal (InputIterator1 first1, InputIterator1 last1, 
+// InputIterator2 first2) 
+      
+  
+#include <bits/stdc++.h> 
+  
+int main() 
+{ 
+    int v1[] = { 10, 20, 30, 40, 50 }; 
+    std::vector<int> vector_1 (v1, v1 + sizeof(v1) / sizeof(int) ); 
+  
+    // Printing vector1 
+    std::cout << "Vector contains : "; 
+    for (unsigned int i = 0; i < vector_1.size(); i++) 
+        std::cout << " " << vector_1[i]; 
+    std::cout << "\n"; 
+  
+    // using std::equal() 
+    // Comparison within default constructor 
+    if ( std::equal (vector_1.begin(), vector_1.end(), v1) ) 
+        std::cout << "The contents of both sequences are equal.\n"; 
+    else
+        printf("The contents of both sequences differ."); 
+  
+} 
+Output:
+
+Vector contains :  10, 20, 30, 40, 50
+The contents of both sequences are equal.
+Syntax 2:
+
+template 
+  bool equal (InputIterator1 first1, InputIterator1 last1,
+              InputIterator2 first2, BinaryPredicate pred);
+
+first_1, last_1 : Initial and final positions of the first
+    sequence. All the elements are present within a range [first_1,last_1)
+first2 : Initial position of the second sequence.
+pred : Binary function that accepts two elements as argument 
+      and returns a value convertible to boolean.
+
+Returns : 
+true, if all of the elements in both ranges match; otherwise false
+
+// C++ program illustrating 
+// use of bool equal (InputIterator1 first1, InputIterator1 last1, 
+// InputIterator2 first2, BinaryPredicate pred); 
+  
+#include <bits/stdc++.h> 
+  
+bool pred(int i, int j) 
+{ 
+    return (i != j); 
+} 
+  
+int main() 
+{ 
+    int v1[] = { 10, 20, 30, 40, 50 }; 
+    std::vector<int> vector_1 (v1, v1 + sizeof(v1) / sizeof(int) ); 
+  
+    // Printing vector1 
+    std::cout << "Vector contains : "; 
+    for (unsigned int i = 0; i < vector_1.size(); i++) 
+        std::cout << " " << vector_1[i]; 
+    std::cout << "\n"; 
+  
+    // using std::equal() 
+    // Comparison based on pred 
+    if ( std::equal (vector_1.begin(), vector_1.end(), v1, pred) ) 
+        std::cout << "The contents of both sequences are equal.\n"; 
+    else
+        printf("The contents of both sequences differ."); 
+  
+} 
+Output:
+
+Vector contains :  10, 20, 30, 40, 50
+The contents of both sequences differ.
+
+
+*********************************************************************************************************
+
+15 std :: is_permutation : Test whether range is permutation of another
+
+The C++ function std::algorithm::is_permutation() tests whether a sequence is permutation of other or not. It uses operator == for comparison. This function was defined in C++11.
+Syntax:
+
+template <class ForwardIterator1, class ForwardIterator2 >
+bool is_permutation(ForwardIterator1 first1, ForwardIterator1 last1,
+ForwardIterator2 first2);
+
+first1, last1: Input iterators to the initial 
+and final positions of the first sequence.
+first2 : Input iterator to the initial position of the second sequence. 
+
+Return value :
+true : if all the elements in range [first1, last1] 
+compare equal to those of the range
+starting at first2 in any order.
+false : Any element missing or exceeding.
+The function considers as many elements of this sequence as those in the range [first1, last1]. If this sequence is shorter, it causes undefined behaviour.
+
+// CPP program to check if  
+// two arrays are equal or not 
+// using std :: is_permutation 
+#include <iostream> 
+#include <algorithm> 
+  
+//Driver Code 
+int main() 
+{ 
+    int A[] = {1, 7, 0, 2}; 
+    int B[] = {0, 7, 2, 1}; 
+      
+    // Check if array B includes all elements of  
+    // array A 
+    if ( std :: is_permutation ( A, A+4, B ) ) 
+    { 
+        std :: cout << "B is a permutation of A" ; 
+    } 
+      
+    else
+    { 
+        std :: cout << "B is not a permutation of A" ; 
+    } 
+    return 0; 
+} 
+Output:
+
+B is a permutation of A
+Other approach to find if arrays are equal or not is discussed here .
+
+Another Example: Check whether two strings are anagram of each other
+
+// CPP program to check whether two strings  
+// are anagram of each other 
+// using std :: is_permutation 
+#include <iostream> 
+#include <algorithm> 
+  
+/*Driver Code*/
+int main() 
+{ 
+    std :: string A = "SILENT"; 
+    std :: string B = "LISTEN"; 
+      
+    /*Checking if B is a permutation of A*/
+    if ( is_permutation ( A.begin(), A.end(), B.begin() ) ) 
+    { 
+        std :: cout << "Anagrams" ; 
+    } 
+      
+    else
+    { 
+        std :: cout << "Not Anagrams" ; 
+    } 
+    return 0; 
+} 
+Output:
+
+Anagrams
+Other approach to Check whether two strings are anagram of each other is discussed here .
+
+Versions of std::permutation
+
+template< class ForwardIt1, class ForwardIt2 >
+bool is_permutation( ForwardIt1 first1, ForwardIt1 last1,
+                     ForwardIt2 first2 );
+// (since C++11)
+template< class ForwardIt1, class ForwardIt2, class BinaryPredicate >
+bool is_permutation( ForwardIt1 first1, ForwardIt1 last1,
+                     ForwardIt2 first2, BinaryPredicate p );
+// (since C++11)
+template< class ForwardIt1, class ForwardIt2 >
+bool is_permutation( ForwardIt1 first1, ForwardIt1 last1,
+                     ForwardIt2 first2, ForwardIt2 last2 );
+// (since C++14)
+template< class ForwardIt1, class ForwardIt2, class BinaryPredicate >
+bool is_permutation( ForwardIt1 first1, ForwardIt1 last1,
+                     ForwardIt2 first2, ForwardIt2 last)2,
+                     BinaryPredicate p );
+//(since C++14)
+
+first1, last1 : the range of elements to compare
+first2, last2 : the second range to compare
+p : binary predicate which returns ?true if the elements should be treated as equal.
+Examples:
+
+// False 
+is_permutation ( c1.begin(),     c1.end (), c2.begin(), c2.end ())  
+  
+// True 
+is_permutation ( c1.begin() + 1, c1.end (), c2.begin(), c2.end ()) 
+  
+// True, all empty ranges are permutations of each other 
+is_permutation ( c1.end (), c1.end (), c2.end(), c2.end ()) 
+
+
+**********************************************************************************************************
+
+16 std :: search : Search range for subsequence
+
+std::search is defined in the header file <algorithm> and used to find out the presence of a subsequence satisfying a condition (equality if no such predicate is defined) with respect to another sequence.
+
+It searches the sequence [first1, last1) for the first occurrence of the subsequence defined by [first2, last2), and returns an iterator to its first element of the occurrence, or last1 if no occurrences are found.
+It compares the elements in both ranges sequentially using operator== (version 1) or based on any given predicate (version 2). A subsequence of [first1, last1) is considered a match only when this is true for all the elements of [first2, last2). Finally, std::search returns the first of such occurrences.
+It can be used in either of the two versions, as depicted below :
+
+For comparing elements using == :
+Syntax:
+ForwardIterator1 search (ForwardIterator1 first1, ForwardIterator1 last1,
+                         ForwardIterator2 first2, ForwardIterator2 last2);
+first1: 
+Forward iterator to beginning of first container to be searched into.
+last1: 
+Forward iterator to end of first container to be searched into.
+first2: 
+Forward iterator to the beginning of the subsequence of second container to be searched for.
+last2: 
+Forward iterator to the ending of the subsequence of second container to be searched for.
+
+Returns:  an iterator to the first element of the f
+irst occurrence of [first2, last2) in [first1, last1), or last1 
+if no occurrences are found.
+
+// C++ program to demonstrate the use of std::search 
+  
+#include <iostream> 
+#include <vector> 
+#include <algorithm> 
+using namespace std; 
+int main() 
+{ 
+    int i, j; 
+  
+    // Declaring the sequence to be searched into 
+    vector<int> v1 = { 1, 2, 3, 4, 5, 6, 7 }; 
+  
+    // Declaring the subsequence to be searched for 
+    vector<int> v2 = { 3, 4, 5 }; 
+  
+    // Declaring an iterator for storing the returning pointer 
+    vector<int>::iterator i1; 
+  
+    // Using std::search and storing the result in 
+    // iterator i1 
+    i1 = std::search(v1.begin(), v1.end(), v2.begin(), v2.end()); 
+  
+    // checking if iterator i1 contains end pointer of v1 or not 
+    if (i1 != v1.end()) { 
+        cout << "vector2 is present at index " << (i1 - v1.begin()); 
+    } else { 
+        cout << "vector2 is not present in vector1"; 
+    } 
+  
+    return 0; 
+} 
+Output:
+
+vector2 is present at index 2
+For comparison based on a predicate (or condition) :
+Syntax:
+
+ForwardIterator1 search (ForwardIterator1 first1, ForwardIterator1 last1,
+                         ForwardIterator2 first2, ForwardIterator2 last2,
+                         BinaryPredicate pred);
+
+All the arguments are same as previous template, just one more argument is added
+
+pred: Binary function that accepts two elements
+as arguments (one of each of the two containers, in the same order), 
+and returns a value convertible to bool. The returned value indicates 
+whether the elements are considered to match in the context of this function.
+The function shall not modify any of its arguments.
+This can either be a function pointer or a function object.
+
+Returns: an iterator, to the first element 
+of the first occurrence of [first2, last2) satisfying a predicate, 
+in [first1, last1), or last1 if no occurrences are found.
+
+// C++ program to demonstrate the use of std::search 
+// with binary predicate 
+#include <iostream> 
+#include <vector> 
+#include <algorithm> 
+using namespace std; 
+  
+// Defining the BinaryPredicate function 
+bool pred(int i, int j) 
+{ 
+    if (i > j) { 
+        return 1; 
+    } else { 
+        return 0; 
+    } 
+} 
+  
+int main() 
+{ 
+    int i, j; 
+  
+    // Declaring the sequence to be searched into 
+    vector<int> v1 = { 1, 2, 3, 4, 5, 6, 7 }; 
+  
+    // Declaring the subsequence to be compared to based 
+    // on predicate 
+    vector<int> v2 = { 3, 4, 5 }; 
+  
+    // Declaring an iterator for storing the returning pointer 
+    vector<int>::iterator i1; 
+  
+    // Using std::search and storing the result in 
+    // iterator i1 based on predicate pred 
+    i1 = std::search(v1.begin(), v1.end(), v2.begin(), v2.end(), pred); 
+  
+    // checking if iterator i1 contains end pointer of v1 or not 
+    if (i1 != v1.end()) { 
+        cout << "vector1 elements are greater than vector2 starting "
+             << "from position " << (i1 - v1.begin()); 
+    } else { 
+        cout << "vector1 elements are not greater than vector2 "
+             << "elements consecutively."; 
+    } 
+  
+    return 0; 
+} 
+Output:
+
+vector1 elements are greater than vector2 starting from position 3
+
+************************************************************************************************************
+
+17 std :: search_n : Search range for element
+
+
+std::search_n is an STL algorithm defined inside the header file , which is used to search whether a given element satisfies a predicate (equality if no such predicate is defined ) a given no. of times consecutively with the container elements.
+
+It searches the range [first, last) for a sequence of count elements, each comparing equal to a given value (version 1) or satisfying a predicate (version 2).
+
+The function returns an iterator to the first of such elements, or an iterator to the last element of the container, if no such sequence is found.
+
+The two versions of std::search_n are defined as below –
+
+For comparing elements using ==:
+Syntax:
+
+ ForwardIterator search_n (ForwardIterator first, ForwardIterator last,
+                           Size count, const T& val);
+
+first: 
+Forward iterator to beginning of the container to be searched into.
+last: 
+Forward iterator to end of the container to be searched into.
+count: 
+Minimum number of successive elements to match.
+Size shall be (convertible to) an integral type.
+val: Individual value to be compared.
+Returns: 
+It returns an iterator to the first element of the sequence.
+If no such sequence is found, the function returns last.
+
+// C++ program to demonstrate the use of std::search_n 
+  
+#include <iostream> 
+#include <vector> 
+#include <algorithm> 
+using namespace std; 
+int main() 
+{ 
+    int i, j; 
+  
+    // Declaring the sequence to be searched into 
+    vector<int> v1 = { 1, 2, 3, 4, 5, 3, 3, 6, 7 }; 
+  
+    // Declaring the value to be searched for 
+    int v2 = 3; 
+  
+    // Declaring an iterator for storing the returning pointer 
+    vector<int>::iterator i1; 
+  
+    // Using std::search_n and storing the result in 
+    // iterator i1 
+    i1 = std::search_n(v1.begin(), v1.end(), 2, v2); 
+  
+    // checking if iterator i1 contains end pointer of v1 or not 
+    if (i1 != v1.end()) { 
+        cout << "v2 is present consecutively 2 times at index "
+             << (i1 - v1.begin()); 
+    } else { 
+        cout << "v2 is not present consecutively 2 times in "
+             << "vector v1"; 
+    } 
+  
+    return 0; 
+} 
+Output:
+
+v2 is present consecutively 2 times at index 5
+For comparing element using a predicate:
+Syntax:
+ForwardIterator search_n ( ForwardIterator first, ForwardIterator last,
+                           Size count, const T& val, BinaryPredicate pred );
+
+All the arguments are same as previous template, just one more argument is added
+
+pred: Binary function that accepts two arguments 
+(one element from the sequence as first, and val as second),
+ and returns a value convertible to bool. The value returned indicates whether 
+the element is considered a match in the context of this function.
+The function shall not modify any of its arguments. 
+This can either be a function pointer or a function object.
+
+Returns:
+It also returns value as per the previous version, i.e., 
+an iterator to the first element of the sequence, 
+satisfying a condition with respect to a given value.
+If no such sequence is found, the function returns last.
+
+// C++ program to demonstrate the use of std::search_n 
+// with binary predicate 
+#include <iostream> 
+#include <vector> 
+#include <algorithm> 
+using namespace std; 
+  
+// Defining the BinaryPredicate function 
+bool pred(int i, int j) 
+{ 
+    if (i == j) { 
+        return 1; 
+    } else { 
+        return 0; 
+    } 
+} 
+  
+int main() 
+{ 
+    int i, j; 
+  
+    // Declaring the sequence to be searched into 
+    vector<int> v1 = { 1, 2, 3, 4, 5, 3, 3, 6, 7 }; 
+  
+    // Declaring the value to be compared to v1 based 
+    // on a given predicate 
+    int v2 = 3; 
+  
+    // Declaring an iterator for storing the returning pointer 
+    vector<int>::iterator i1; 
+  
+    // Using std::search_n and storing the result in 
+    // iterator i1 
+    i1 = std::search_n(v1.begin(), v1.end(), 2, v2, pred); 
+  
+    // checking if iterator i1 contains end pointer of v1 or not 
+    if (i1 != v1.end()) { 
+        cout << "v2 is present consecutively 2 times at index "
+             << (i1 - v1.begin()); 
+    } else { 
+        cout << "v2 is not present consecutively 2 times "
+             << "in vector v1"; 
+    } 
+  
+    return 0; 
+} 
+Output:
+
+v2 is present consecutively 2 times at index 5
+

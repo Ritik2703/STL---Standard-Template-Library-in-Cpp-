@@ -1,0 +1,7 @@
+Partition Operations
+
+std :: is_partitioned : Test whether range is partitioned
+std :: partition : Partition range in two
+std :: stable_partition : Partition range in two – stable ordering
+partition_copy : Partition range into two
+partition_point : Get partition point
