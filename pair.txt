@@ -1,0 +1,377 @@
+Pair in C++ Standard Template Library (STL)
+The pair container is a simple container defined in <utility> header consisting of two data elements or objects.
+
+The first element is referenced as ‘first’ and the second element as ‘second’ and the order is fixed (first, second).
+Pair is used to combine together two values which may be different in type. Pair provides a way to store two heterogeneous objects as a single unit.
+Pair can be assigned, copied and compared. The array of objects allocated in a map or hash_map are of type ‘pair’ by default in which all the ‘first’ elements are unique keys associated with their ‘second’ value objects.
+To access the elements, we use variable name followed by dot operator followed by the keyword first or second.
+Syntax :
+
+ pair (data_type1, data_type2) Pair_name;
+
+//CPP program to illustrate pair STL 
+#include <iostream> 
+#include <utility> 
+using namespace std; 
+  
+int main() 
+{ 
+    pair <int, char> PAIR1 ; 
+  
+    PAIR1.first = 100; 
+    PAIR1.second = 'G' ; 
+  
+    cout << PAIR1.first << " " ; 
+    cout << PAIR1.second << endl ; 
+  
+    return 0; 
+} 
+Output:
+
+100 G
+Initializing a pair
+
+We can also initialize a pair.
+Syntax :
+
+pair (data_type1, data_type2) Pair_name (value1, value2) ;
+Different ways to initialize pair:
+
+pair  g1;         //default
+pair  g2(1, 'a');  //initialized,  different data type
+pair  g3(1, 10);   //initialized,  same data type
+pair  g4(g3);    //copy of g3
+Another way to initialize a pair is by using the make_pair() function.
+
+g2 = make_pair(1, 'a');
+
+//CPP program to illustrate Initializing of pair STL 
+#include <iostream> 
+#include <utility> 
+using namespace std; 
+  
+int main() 
+{ 
+    pair <string,double> PAIR2 ("GeeksForGeeks", 1.23); 
+  
+    cout << PAIR2.first << " " ; 
+    cout << PAIR2.second << endl ; 
+      
+return 0; 
+} 
+Output:
+
+GeeksForGeeks 1.23
+Note: If not initialized, the first value of the pair gets automatically initialized.
+
+filter_none
+edit
+play_arrow
+
+brightness_4
+//CPP program to illustrate auto-initializing of pair STL 
+#include <iostream> 
+#include <utility> 
+  
+using namespace std; 
+  
+int main() 
+{ 
+    pair <int, double> PAIR1 ; 
+    pair <string, char> PAIR2 ; 
+  
+    cout << PAIR1.first ;  //it is initialised to 0 
+    cout << PAIR1.second ; //it is initialised to 0 
+  
+    cout << " "; 
+  
+    cout << PAIR2.first ;  //it prints nothing i.e NULL 
+    cout << PAIR2.second ; //it prints nothing i.e NULL 
+  
+    return 0; 
+} 
+Output:
+
+00
+Member Functions
+
+make_pair() : This template function allows to create a value pair without writing the types explicitly.
+Syntax :
+Pair_name = make_pair (value1,value2);
+
+#include <iostream> 
+#include <utility> 
+using namespace std; 
+  
+int main() 
+{ 
+    pair <int, char> PAIR1 ; 
+    pair <string, double> PAIR2 ("GeeksForGeeks", 1.23) ; 
+    pair <string, double> PAIR3 ; 
+  
+    PAIR1.first = 100; 
+    PAIR1.second = 'G' ; 
+  
+    PAIR3 = make_pair ("GeeksForGeeks is Best",4.56); 
+  
+    cout << PAIR1.first << " " ; 
+    cout << PAIR1.second << endl ; 
+  
+    cout << PAIR2.first << " " ; 
+    cout << PAIR2.second << endl ; 
+  
+    cout << PAIR3.first << " " ; 
+    cout << PAIR3.second << endl ; 
+  
+    return 0; 
+} 
+Output:
+
+100 G
+GeeksForGeeks 1.23
+GeeksForGeeks is Best 4.56
+operators(=, ==, !=, >=, <=) : We can use operators with pairs as well.
+using equal(=) : It assigns new object for a pair object.
+Syntax :
+pair& operator= (const pair& pr);
+This Assigns pr as the new content for the pair object. The first value is assigned the first value of pr and the second value is assigned the second value of pr .
+
+Comparison (==) operator with pair : For given two pairs say pair1 and pair2, the comparison operator compares the first value and second value of those two pairs i.e. if pair1.first is equal to pair2.first or not AND if pair1.second is equal to pair2.second or not .
+Not equal (!=) operator with pair : For given two pairs say pair1 and pair2, the != operator compares the first values of those two pairs i.e. if pair1.first is equal to pair2.first or not, if they are equal then it checks the second values of both.
+Logical( >=, <= )operators with pair : For given two pairs say pair1 and pair2, the =, >, can be used with pairs as well. It returns 0 or 1 by only comparing the first value of the pair.
+.
+
+
+//CPP code to illustrate operators in pair 
+#include <iostream> 
+#include<utility> 
+using namespace std; 
+  
+int main() 
+{ 
+    pair<int, int>pair1 = make_pair(1, 12); 
+    pair<int, int>pair2 = make_pair(9, 12); 
+  
+  
+    cout << (pair1 == pair2) << endl; 
+    cout << (pair1 != pair2) << endl; 
+    cout << (pair1 >= pair2) << endl; 
+    cout << (pair1 <= pair2) << endl; 
+    cout << (pair1 > pair2) << endl; 
+    cout << (pair1 < pair2) << endl; 
+  
+    return 0; 
+} 
+Output:
+
+0
+1
+0
+1
+0
+1
+swap : This function swaps the contents of one pair object with the contents of another pair object. The pairs must be of same type.
+Syntax :
+pair1.swap(pair2) ;
+For two given pairs say pair1 and pair2 of same type, swap function will swap the pair1.first with pair2.first and pair1.second with pair2.second.
+
+filter_none
+edit
+play_arrow
+
+brightness_4
+#include <iostream> 
+#include<utility> 
+  
+using namespace std; 
+  
+int main() 
+{ 
+    pair<char, int>pair1 = make_pair('A', 1); 
+    pair<char, int>pair2 = make_pair('B', 2); 
+  
+    cout << "Before swapping:\n " ; 
+    cout << "Contents of pair1 = " << pair1.first << " " << pair1.second ; 
+    cout << "Contents of pair2 = " << pair2.first << " " << pair2.second ; 
+    pair1.swap(pair2); 
+  
+    cout << "\nAfter swapping:\n "; 
+    cout << "Contents of pair1 = " << pair1.first << " " << pair1.second ; 
+    cout << "Contents of pair2 = " << pair2.first << " " << pair2.second ; 
+  
+    return 0; 
+} 
+Output:
+
+Before swapping:
+Contents of pair1 = (A, 1)
+Contents of pair2 = (B, 2)
+
+After swapping:
+Contents of pair1 = (B, 2)
+Contents of pair2 = (A, 1)
+
+//CPP program to illustrate pair in STL 
+#include <iostream> 
+#include <utility>  
+#include <string>  
+using namespace std; 
+  
+int main() 
+{ 
+    pair <string, int> g1; 
+    pair <string, int> g2("Quiz", 3); 
+    pair <string, int> g3(g2); 
+    pair <int, int> g4(5, 10); 
+  
+    g1 = make_pair(string("Geeks"), 1); 
+    g2.first = ".com"; 
+    g2.second = 2; 
+  
+    cout << "This is pair g" << g1.second << " with "
+        << "value " << g1.first << "." << endl << endl; 
+  
+    cout << "This is pair g" << g3.second 
+        << " with value " << g3.first 
+        << "This pair was initialized as a copy of "
+        << "pair g2" << endl << endl; 
+  
+    cout << "This is pair g" << g2.second 
+        << " with value " << g2.first 
+        << "\nThe values of this pair were"
+        << " changed after initialization."
+        << endl << endl; 
+  
+    cout << "This is pair g4 with values "
+        << g4.first << " and " << g4.second 
+        << " made for showing addition. \nThe "
+        << "sum of the values in this pair is "
+        << g4.first+g4.second 
+        << "." << endl << endl; 
+  
+    cout << "We can concatenate the values of"
+        << " the pairs g1, g2 and g3 : "
+        << g1.first + g3.first + g2.first << endl << endl; 
+  
+    cout << "We can also swap pairs "
+        << "(but type of pairs should be same) : " << endl; 
+    cout << "Before swapping, " << "g1 has " << g1.first 
+        << " and g2 has " << g2.first << endl; 
+    swap(g1, g2); 
+    cout << "After swapping, "
+        << "g1 has " << g1.first << " and g2 has " << g2.first; 
+  
+    return 0; 
+} 
+Output:
+
+This is pair g1 with value Geeks.
+
+This is pair g3 with value QuizThis pair was initialized as a copy of pair g2
+
+This is pair g2 with value .com
+The values of this pair were changed after initialization.
+
+This is pair g4 with values 5 and 10 made for showing addition. 
+The sum of the values in this pair is 15.
+
+We can concatenate the values of the pairs g1, g2 and g3 : GeeksQuiz.com
+
+We can also swap pairs (but type of pairs should be same) : 
+Before swapping, g1 has Geeks and g2 has .com
+After swapping, g1 has .com and g2 has Geeks
+
+
+Sets of pairs in C++
+Sets are a type of associative containers in which each element has to be unique, because the value of the element identifies it. The value of the element cannot be modified once it is added to the set, though it is possible to remove and add the modified value of that element.
+
+Pair is a simple container defined in <utility> header consisting of two data elements or objects.
+
+The first element is referenced as ‘first’ and the second element as ‘second’ and the order is fixed (first, second).
+Pair is used to combine together two values which may be different in type. Pair provides a way to store two heterogeneous objects as a single unit.
+Pair can be assigned, copied and compared. The array of objects allocated in a map or hash_map are of type ‘pair’ by default in which all the ‘first’ elements are unique keys associated with their ‘second’ value objects.
+To access the elements, we use variable name followed by dot operator followed by the keyword first or second.
+Sets of Pairs help in performing the following operations:
+
+Add a pair, but do not allow duplicates.
+Remove pairs.
+Get count of distinct pairs.
+Check whether a pair is present in a set or not.
+The syntax for creating sets of pairs is:
+
+set<pair<datatype1, datatype2>>set_name;
+Creating Sets of Pairs
+Example: Making pairs of all even numbers present in an array.
+
+Input: 2 3 1 6 5 8 10 9
+Output: (2, 6) (2, 8) (2, 10) (6, 8) (6, 10) (8, 10)
+
+Input: 4 4 6 4
+Output: (4, 4) (4, 6)
+
+Input: 24 24 24 24
+Output: (24, 24)
+
+Input: 7, 100, 53, 81
+Output: No valid pair
+Below program illustrate the solution to above problem:
+
+In this example, range-base for loop is used with const reference for speed and security which iterates over all elements in container. Variable ‘x’ is of type ‘pairs’. To access the elements of the pair, use variable name followed by dot operator followed by the keyword ‘first’ or ‘second’, these are public members of class pair.
+
+Program:
+
+// C++ program to create Set of Pairs 
+  
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+typedef pair<int, int> pairs; 
+  
+// Constant reference 
+// reference for speed const to avoid changing values 
+void display(const set<pairs>& s) 
+{ 
+    bool found = false; 
+  
+    // range-based for loop 
+    for (auto const &x : s) { 
+        found = true; 
+        cout << "(" << x.first << ", "
+             << x.second << ")"
+             << " "; 
+    } 
+  
+    if (not found) { 
+        cout << "No valid pair\n"; 
+    } 
+} 
+int main() 
+{ 
+    vector<int> v{ 2, 3, 1, 6, 5, 8, 10, 9 }; 
+    set<pairs> s; 
+      
+    sort(v.begin(), v.end()); 
+  
+    for (int i = 0; i < v.size() - 1; i++) { 
+        for (int j = i + 1; j < v.size(); j++) { 
+  
+            // check for even number 
+            if (v[i] % 2 == 0 && v[j] % 2 == 0) { 
+  
+                // makes pairs of even numbers 
+                pairs x = make_pair(v[i], v[j]); 
+  
+                // inserts into the set 
+                s.insert(x); 
+            } 
+        } 
+    } 
+  
+    // to display the pairs 
+    display(s); 
+  
+    // to clear the set 
+    s.clear(); 
+} 
+Output:
+(2, 6) (2, 8) (2, 10) (6, 8) (6, 10) (8, 10)
