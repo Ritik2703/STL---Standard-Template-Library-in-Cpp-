@@ -1,0 +1,206 @@
+unordered_multiset and its uses
+We have discussed about unordered_set in our previous post the problem with unordered_set is that, it is not possible to store duplicate entries in that data structure. For example if we have some value v already in unordered_set, inserting v again will have no effect.
+To handle this duplication unordered_mulitset should be used, it can store duplicate elements also. Internally when an existing value is inserted, the data structure increases its count which is associated with each value. As count of each value is stored in unordered_multiset, it takes more space than unordered_set (if all values are distinct).
+The internal implementation of unordered_multiset is same as that of unordered_set and also uses hash table for searching, just the count value is associated with each value in former one. Due to hashing of elements it has no particular order of storing the elements so all element can come in any order but duplicate element comes together. All operation on unordered_multiset takes constant time on average but can go upto linear in worst case.
+Unordered_multiset supports many function which are demonstrated in below code :
+
+// C++ program to demonstrate various function 
+// of unordered_multiset 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+// making typedef for short declaration 
+typedef unordered_multiset<int>::iterator umit; 
+  
+// Utility function to print unordered_multiset 
+void printUset(unordered_multiset<int> ums) 
+{ 
+    //  begin() returns iterator to first element of set 
+    umit it = ums.begin(); 
+    for (; it != ums.end(); it++) 
+        cout << *it << " "; 
+    cout << endl; 
+} 
+  
+//  Driver program to check all function 
+int main() 
+{ 
+    //  empty initialization 
+    unordered_multiset<int> ums1; 
+  
+    //  Initialization bu intializer list 
+    unordered_multiset<int> ums2 ({1, 3, 1, 7, 2, 3, 
+                                   4, 1, 6}); 
+  
+    //  Initialization by assignment 
+    ums1 = {2, 7, 2, 5, 0, 3, 7, 5}; 
+  
+    //  empty() function return true is set is empty 
+    // otherwise false 
+    if (ums1.empty()) 
+        cout << "unordered multiset 1 is empty\n"; 
+    else
+        cout << "unordered multiset 1 is not empty\n"; 
+  
+    //  size() function returns total number of elements 
+    // in data structure 
+    cout << "The size of unordered multiset 2 is : "
+         << ums2.size() << endl; 
+  
+    printUset(ums1); 
+  
+    ums1.insert(7); 
+  
+    printUset(ums1); 
+  
+    int val = 3; 
+  
+    // find function returns iterator to first position 
+    // of  val, if exist otherwise it returns iterator 
+    // to end 
+    if (ums1.find(val) != ums1.end()) 
+        cout << "unordered multiset 1 contains "
+             << val << endl; 
+    else
+        cout << "unordered multiset 1 does not contains "
+             << val << endl; 
+  
+    //  count function returns total number of occurence in set 
+    val = 5; 
+    int cnt = ums1.count(val); 
+    cout << val << " appears " << cnt 
+         << " times in unordered multiset 1 \n"; 
+  
+    val = 9; 
+  
+    //  if count return >0 value then element exist otherwise not 
+    if (ums1.count(val)) 
+        cout << "unordered multiset 1 contains "
+             << val << endl; 
+    else
+        cout << "unordered multiset 1 does not contains "
+             << val << endl; 
+  
+    val = 1; 
+  
+    // equal_range returns a pair, where first is iterator 
+    // to first position of val and second it iterator to 
+    // last position to val 
+    pair<umit, umit> erange_it = ums2.equal_range(val); 
+    if (erange_it.first != erange_it.second) 
+        cout << val << " appeared atleast once in "
+                        "unoredered_multiset \n"; 
+  
+  
+    printUset(ums2); 
+  
+    // erase function deletes all instances of val 
+    ums2.erase(val); 
+  
+    printUset(ums2); 
+  
+    // clear function deletes all entries from set 
+    ums1.clear(); 
+    ums2.clear(); 
+  
+    if (ums1.empty()) 
+        cout << "unordered multiset 1 is empty\n"; 
+    else
+        cout << "unordered multiset 1 is not empty\n"; 
+} 
+Output :
+
+unordered multiset 1 is not empty
+The size of unordered multiset 2 is : 9
+3 0 5 5 7 7 2 2 
+3 0 5 5 7 7 7 2 2 
+unordered multiset 1 contains 3
+5 appears 2 times in unordered multiset 1 
+unordered multiset 1 does not contains 9
+1 appeared atleast once in unoredered_multiset 
+6 4 2 7 3 3 1 1 1 
+6 4 2 7 3 3 
+unordered multiset 1 is empty
+As we can see most of the operation work similar to that of unordered_set but some things to note are:
+equal_range(val) function returns a pair of type where first iterator points to first position of val and second points to last position of val in data structure.
+erase(val) function deletes all its instances from the data structure for example if some value v has occur t times in unordered_multiset and when erase is called, v is deleted completely which is not a expected behavior many times.
+
+We can delete only one copy of some value by using find function and iterator version of erase, as find function returns iterator to first position of found value we can pass this iterator to erase instead of actual value to delete only one copy, the code for doing this is shown below :
+
+
+//  C++ program to delete one copy from unordered set 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+//  making typedef for short declaration 
+typedef unordered_multiset<int>::iterator umit; 
+  
+//  Utility function to print unordered_multiset 
+void printUset(unordered_multiset<int> ums) 
+{ 
+    // begin() returns iterator to first element of 
+    // set 
+    umit it = ums.begin(); 
+    for (; it != ums.end(); it++) 
+        cout << *it << " "; 
+    cout << endl; 
+} 
+  
+//  function to delete one copy of val from set 
+void erase_one_entry(unordered_multiset<int>& ums, 
+                    int val) 
+{ 
+    //  find returns iterator to first position 
+    umit it = ums.find(val); 
+  
+    //  if element is there then erasing that 
+    if (it != ums.end()) 
+       ums.erase(it); 
+} 
+  
+//  Driver program to check above function 
+int main() 
+{ 
+    //  initializing multiset by initializer list 
+    unordered_multiset<int> ums ({1, 3, 1, 7, 2, 3, 
+                                 4, 1, 6}); 
+  
+    int val = 1; 
+    printUset(ums); 
+    erase_one_entry(ums, val); 
+    printUset(ums); 
+} 
+Output :
+
+6 4 2 7 3 3 1 1 1 
+6 4 2 7 3 3 1 1 
+Methods of unordered_multiset:
+
+insert()– Inserts new elements in the unordered_multiset. Thus increases the container size.
+begin()– Returns an iterator pointing to the first element in the container or to the first element in one of its bucket.
+end()– Returns an iterator pointing to the position immediately after the last element in the container or to the position immediately after the last element in one of its bucket.
+empty()– It returns true if the unordered_multiset container is empty. Otherwise, it returns false.
+find()– Returns an iterator which points to the position which has the element val.
+cbegin()– Returns a constant iterator pointing to the first element in the container or to the first element in one of its bucket.
+cend()– Returns a constant iterator pointing to the position immediately after the last element in the container or to the position immediately after the last element in one of its bucket.
+equal_range()– Returns the range in which all the elements are equal to a given value.
+emplace()– Inserts a new element in the unordered_multiset container.
+clear()– Clears the contents of the unordered_multiset container.
+count()– Returns the count of elements in the unordered_multiset container which is equal to a given value.
+size()– The size() method of unordered_multiset is used to count the number of elements of unordered_set it is called with.
+max_size– The max_size() of unordered_multiset takes the maximum number of elements that the unordered_multiset container is able to hold.
+swap()– Swaps the contents of two unordered_multiset containers.
+erase() – Used to remove either a single element or, all elements with a definite value or, a range of elements ranging from start(inclusive) to end(exclusive).
+bucket()– Returns the bucket number in which a given element is. Bucket size varies from 0 to bucket_count-1.
+bucket_size()– Returns the number of elements in the bucket which has the element val.
+reserve()– The reverse() function of unordered_multiset sets the number of buckets in the container (bucket_count) to the most appropriate to contain at least n elements.
+max_bucket_count()– Returns the maximum number of buckets that the unordered multiset container can have.
+load_factor()– Returns the current load factor in the unordered_multiset container.
+max_load_factor()– Returns the maximum load factor of the unordered_multiset container.
+bucket_count()– Returns the total number of buckets in the unordered_multiset container.
+hash_function()– This hash function is a unary function which takes a single argument only and returns a unique value of type size_t based on it.
+rehash()– Sets the number of buckets in the container to N or more.
+key_eq()– Returns a boolean value according to the comparison.
+emplace_hint()– Inserts a new element in the unordered_multiset container.
+get_allocator– This function gets the stored allocator object and returns the allocator object which is used to construct the container.
+operator =– The ‘=’ is an operator in C++ STL which copies (or moves) an unordered_multiset to another unordered_multiset and unordered_multiset::operator= is the corresponding operator function.
