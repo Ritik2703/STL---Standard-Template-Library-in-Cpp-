@@ -1,5 +1,0 @@
-Other Operations
-
-std :: lexicographical_compare : Lexicographical less-than comparison
-std :: next_permutation : Transform range to next permutation
-std :: prev_permutation : Transform range to previous permutation
